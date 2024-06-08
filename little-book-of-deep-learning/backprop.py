@@ -27,18 +27,35 @@ def forward_pass(X):
 
 def backward_pass(X, y, z1, a1, z2, a2):
     # Compute the error at the output
+    # error_output is the difference between the predicted output and the actual output
     error_output = a2 - y
+    
+    # Compute delta at the output layer
+    # delta_output is the error_output multiplied by the derivative of the sigmoid function at a2
     delta_output = error_output * sigmoid_derivative(a2)
     
     # Compute the error at the hidden layer
+    # error_hidden is the dot product of delta_output and the transpose of W2
     error_hidden = np.dot(delta_output, W2.T)
+    
+    # Computeu delta at the hidden layer
+    # delta_hidden is the error_hidden multiplied by the derivative of the sigmoid fnction at a1
     delta_hidden = error_hidden * sigmoid_derivative(a1)
     
-    # Compute gradients
+    # Compute gradients for W2 and b2
+    # dW2 is the dot product of the transpose of a1 and delta_output
+    # db2 is the sum of delta_output along the rows
     dW2 = np.dot(a1.T, delta_output)
     db2 = np.sum(delta_output, axis=0)
+    
+    # Compute gradients for W1 and b1
+    # dW1 is the dot product of the transpose of X and delta_hidden
+    # db1 is the sum of delta_hidden along the rows
     dW1 = np.dot(X.T, delta_hidden)
     db1 = np.sum(delta_hidden, axis=0)
+    
+    return dW1, db1, dW2, db2
+
     
     return dW1, db1, dW2, db2
 
