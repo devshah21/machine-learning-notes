@@ -256,3 +256,22 @@
     - for the backward pass, we first compute the loss, then we compute the gradient of the loss with respect to the output activation
         - compute the gradient of the loss with respect to the weights and biases of the output layer → then update weights and biases of the output layer
             - repeat this process for the hidden layers
+
+## Chapter 5
+
+- **understanding MLPs (multi-layer perceptrons)**
+    - this basically takes the form of multiple FCC layer (described above) separated by  activation functions
+        - most common activation function used for these are ReLU
+    - here’s what the training process looks like:
+        - **a)** Initialize weights randomly
+        - **b)** Perform forward propagation with a batch of training data
+        - **c)** Compute the loss (error) between the predicted and actual outputs
+        - **d)** Perform backpropagation to compute gradients
+        - **e)** Update weights using an optimization algorithm (e.g., Stochastic Gradient Descent)
+        - **f)** Repeat steps b-e for multiple epochs until convergence
+
+- **understanding residual networks**
+    - this is an architecture used for the famous CNN called ResNet — it’s used to solve the issue for vanishing gradients (using residual connections)
+        - these residual connections allow for 100s of layers
+            - A residual connection allows the input to a layer to be directly added to the output of a later layer. This creates a "shortcut" for information flow through the network.
+                - In a standard neural network layer: y = F(x) With a residual connection: y = F(x) + x. Where x is the input, F(x) is the layer's transformation, and y is the output
