@@ -37,5 +37,18 @@
             attention_mask = [1 if id != 0 else 0 for id in padded_token_ids]
             # Output: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0]
             ```
-            
--
+- **positional encodings**
+    
+    <aside>
+    💡 the purpose of positional encodings is to enable the model to distinguish between identical tokens in different positions — for example, in the sentence “the cat sat on the mat”, the 2 instances of “the” need to be treated differently based on their positions
+    
+    </aside>
+    
+    - these positional encodings are really important as they provide information about the position of tokens in the input sequence — remember, transformers are position-agnostic
+        - this means they don’t have a built-in notion of the order of the tokens — positional encodings allow the model to leverage the order of the sequence
+    - **computing positional encodings**
+        - position encodings can be added to the input embeddings using fixed functions — a common approach is to use sine and cosine functions of different frequencies
+            - $PE_{(pos, 2i)} = sin(\frac{pos}{10000^{2i/d_{model}}})$
+            - $PE_{(pos, 2i+1)} = cos(\frac{pos}{10000^{2i/d_{model}}})$
+                - In these equations, *pos* is the position, *i* is the dimension, and $d_{model}$ is the dimension of the model (embedding size)
+        - check `positional_encoding.py` for an implementation of this
